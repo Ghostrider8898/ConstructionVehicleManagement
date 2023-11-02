@@ -1,0 +1,36 @@
+﻿@page "/vehicles"
+@inject IVehicleService VehicleService
+<h3>Vehicles</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>NumberPlate</th>
+            <th>Vehicle Category</th>
+            <th>Avaibility Status</th>
+            <th>Rate Per Hour</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var vehicle in VehicleService.Vehicles)
+        {
+            <tr>
+                <td>@vehicle.NumberPlate</td>
+                <td>@vehicle.vehicleCategory.Category</td>
+                <td>@vehicle.AvaibilityStatus</td>
+                <td>@vehicle.vehicleCategory.RatePerHour</td>
+                <td>
+                    <button class="btn btn-primary"><i class="oi oi-penci" style="margin-left:10px;"></i>Edit</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        await VehicleService.GetVehicles();
+    }
+}
